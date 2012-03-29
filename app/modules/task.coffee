@@ -36,7 +36,7 @@ define [
       return @model.toJSON()
 
     loadDetail: ->
-      app.trigger('updateDetail', @model)
+      app.router.navigate("/show/#{@model.id}", {trigger: true})
 
   class Task.Views.Detail extends Backbone.LayoutManager.View
     template: "task/detail"

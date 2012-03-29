@@ -13,8 +13,8 @@ function($, _, Backbone, Handlebars) {
   // Put application wide code here
   Backbone.LayoutManager.configure({
     paths: {
-      layout: "app/templates/layouts/",
-      template: "app/templates/"
+      layout: "/app/templates/layouts/",
+      template: "/app/templates/"
     },
 
     render: function(template, context) {

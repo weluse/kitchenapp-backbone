@@ -18,26 +18,42 @@ function(kitchenapp, $, Backbone, Person, Task) {
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
     routes: {
-      "": "index"
+      "": "index",
+      "show/:id": "show"
     },
 
-    index: function() {
+    _initMain: function() {
       var main = new Backbone.LayoutManager({
         template: "main"
-      }),
-      detail, list;
+      });
 
-      app.tasks = new Task.Collection();
-      app.tasks.fetch();
+      if (app.tasks === undefined) {
+        app.tasks = new Task.Collection();
+        app.tasks.loaded = app.tasks.fetch();
 
-      detail = main.view("#kl-task-detail", new Task.Views.Detail());
-      list = main.view("#kl-task-list", new Task.Views.List({
+      }
+      main.view("#kl-task-list", new Task.Views.List({
         collection: app.tasks
       }));
 
-      app.on("updateDetail", function (model) {
-        console.log("Update detail to ", model);
-        detail.model = model;
+      return main;
+    },
+
+    index: function () {
+      var main = this._initMain();
+
+      main.render(function(el) {
+        $("body").html(el);
+      });
+    },
+
+    show: function(id) {
+      var main = this._initMain();
+
+      detail = main.view("#kl-task-detail", new Task.Views.Detail());
+
+      app.tasks.loaded.then(function () {
+        detail.model = app.tasks.get(id);
         detail.render();
       });
 
