@@ -76,6 +76,21 @@ config.init({
     ]
   },
 
+  coffee: {
+      files: ["app/**/*.coffee", "test/unit/**/*.coffee"]
+  },
+
+  watch: {
+    files: ["assets/**/*", "app/**/*", "test/unit/**/*.coffee"],
+    tasks: "coffee concat jst",
+
+    min: {
+      files: ["assets/**/*", "app/**/*"],
+      tasks: "default"
+    }
+  },
+
+
   // Running the server without specifying an action will run the defaults,
   // port: 8080 and host: 127.0.0.1.  If you would like to change these
   // defaults, simply add in the properties `port` and `host` respectively.
@@ -137,7 +152,7 @@ config.init({
 // dist/debug/templates.js, compile all the application code into
 // dist/debug/require.js, and then concatenate the require/define shim
 // almond.js and dist/debug/templates.js into the require.js file.
-task.registerTask("default", "clean lint handlebars requirejs concat");
+task.registerTask("default", "clean coffee lint handlebars requirejs concat");
 
 // The debug task is simply an alias to default to remain consistent with
 // debug/release.
