@@ -24,15 +24,21 @@ function(kitchenapp, $, Backbone, Person, Task) {
     index: function() {
       var main = new Backbone.LayoutManager({
         template: "main"
-      });
+      }),
+      detail, list;
 
       app.tasks = new Task.Collection();
       app.tasks.fetch();
 
-      main.setViews({
-        "#contents": new Task.Views.List({
-          collection: app.tasks
-        })
+      detail = main.view("#kl-task-detail", new Task.Views.Detail());
+      list = main.view("#kl-task-list", new Task.Views.List({
+        collection: app.tasks
+      }));
+
+      app.on("updateDetail", function (model) {
+        console.log("Update detail to ", model);
+        detail.model = model;
+        detail.render();
       });
 
       main.render(function(el) {
