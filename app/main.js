@@ -12,6 +12,9 @@ require([
 
 function(kitchenapp, $, Backbone, Person, Task) {
 
+  // Shorthand the application namespace
+  var app = kitchenapp.app;
+
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
     routes: {
@@ -23,8 +26,13 @@ function(kitchenapp, $, Backbone, Person, Task) {
         template: "main"
       });
 
+      app.tasks = new Task.Collection();
+      app.tasks.fetch();
+
       main.setViews({
-        // "#contents": new Example.Views.Index()
+        "#contents": new Task.Views.List({
+          collection: app.tasks
+        })
       });
 
       main.render(function(el) {
@@ -32,9 +40,6 @@ function(kitchenapp, $, Backbone, Person, Task) {
       });
     }
   });
-
-  // Shorthand the application namespace
-  var app = kitchenapp.app;
 
   // Treat the jQuery ready function as the entry point to the application.
   // Inside this function, kick-off all initialization, everything up to this
