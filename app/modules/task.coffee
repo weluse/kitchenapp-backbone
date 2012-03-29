@@ -19,6 +19,7 @@ define [
 
     initialize: ->
       @collection.bind('reset', => @render())
+      @collection.bind('change', => @render())
 
     render: (layout) ->
       view = layout(this)
@@ -42,12 +43,10 @@ define [
 
   class Task.Views.Detail extends Backbone.LayoutManager.View
     template: "task/detail"
-
-    initilize: ->
-      @model.on('change', => @render())
+    events:
+      "click button": 'save'
 
     serialize: ->
-      window.cmodel = @model
       return @model.toJSON()
 
     render: (layout) ->
@@ -57,5 +56,9 @@ define [
         console.log("Bound to ", this.model.get("id"))
         Backbone.ModelBinding.bind(this)
       )
+
+    save: (ev) ->
+      console.log("Saving task data")
+      @model.save()
 
   return Task
