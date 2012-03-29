@@ -54,7 +54,6 @@ function(kitchenapp, $, Backbone, Person, Task) {
         detail = main.view("#kl-task-detail", new Task.Views.Detail());
 
         detail.model = app.tasks.get(id);
-        detail.render();
       });
 
       main.render(function(el) {
