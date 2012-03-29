@@ -1,7 +1,9 @@
 define [
-    "kitchenapp",
-    "use!backbone"
+  "kitchenapp",
+  "use!backbone",
+  "modelbinding"
 ], (kitchenapp, Backbone) ->
+  Backbone.ModelBinding = require('modelbinding')
   # XXX: DEBUG!!
   window.Task = Task = kitchenapp.module()
   app = kitchenapp.app
@@ -42,6 +44,10 @@ define [
     template: "task/detail"
 
     serialize: ->
+      window.cmodel = @model
       return @model.toJSON()
+
+    initialize: ->
+      Backbone.ModelBinding.bind(this)
 
   return Task

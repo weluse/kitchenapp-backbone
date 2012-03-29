@@ -12,6 +12,7 @@ require.config({
     jquery: "../assets/js/libs/jquery",
     underscore: "../assets/js/libs/underscore",
     backbone: "../assets/js/libs/backbone",
+    modelbinding: "../assets/js/libs/backbone.modelbinding",
     handlebars: "../assets/js/libs/handlebars-1.0.0.beta.6",
 
     // Shim Plugin
