@@ -45,6 +45,7 @@ define [
     template: "task/detail"
     events:
       "click button": 'save'
+      "click .delete": 'delete'
 
     serialize: ->
       return @model.toJSON()
@@ -58,6 +59,13 @@ define [
     save: (ev) ->
       console.log("Saving task data")
       @model.save()
+
+    delete: (ev) ->
+      ev.preventDefault()
+
+      if confirm("Really?")
+        @model.destroy()
+        app.router.navigate("/", {trigger: true})
 
   class Task.Views.Create extends Backbone.LayoutManager.View
     template: "task/create"
