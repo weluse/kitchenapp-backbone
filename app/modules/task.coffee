@@ -43,11 +43,19 @@ define [
   class Task.Views.Detail extends Backbone.LayoutManager.View
     template: "task/detail"
 
+    initilize: ->
+      @model.on('change', => @render())
+
     serialize: ->
       window.cmodel = @model
       return @model.toJSON()
 
-    initialize: ->
-      Backbone.ModelBinding.bind(this)
+    render: (layout) ->
+      r = layout(this).render()
+
+      return r.then(=>
+        console.log("Bound to ", this.model.get("id"))
+        Backbone.ModelBinding.bind(this)
+      )
 
   return Task

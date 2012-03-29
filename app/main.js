@@ -32,9 +32,14 @@ function(kitchenapp, $, Backbone, Person, Task) {
         app.tasks.loaded = app.tasks.fetch();
 
       }
+
       main.view("#kl-task-list", new Task.Views.List({
         collection: app.tasks
       }));
+
+      main.render(function(el) {
+        $("body").html(el);
+      });
 
       return main;
     },
@@ -42,9 +47,6 @@ function(kitchenapp, $, Backbone, Person, Task) {
     index: function () {
       var main = this._initMain();
 
-      main.render(function(el) {
-        $("body").html(el);
-      });
     },
 
     show: function(id) {
@@ -54,10 +56,7 @@ function(kitchenapp, $, Backbone, Person, Task) {
         detail = main.view("#kl-task-detail", new Task.Views.Detail());
 
         detail.model = app.tasks.get(id);
-      });
-
-      main.render(function(el) {
-        $("body").html(el);
+        detail.render();
       });
     }
   });
