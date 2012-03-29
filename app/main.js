@@ -1,15 +1,16 @@
 require([
-  "namespace",
+  "kitchenapp",
 
   // Libs
   "jquery",
   "use!backbone",
 
   // Modules
-  "modules/example"
+  "modules/person",
+  "modules/task"
 ],
 
-function(namespace, $, Backbone, Example) {
+function(kitchenapp, $, Backbone, Person, Task) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -23,17 +24,17 @@ function(namespace, $, Backbone, Example) {
       });
 
       main.setViews({
-        "#contents": new Example.Views.Index()
+        // "#contents": new Example.Views.Index()
       });
 
       main.render(function(el) {
-        $("body").html(el);   
+        $("body").html(el);
       });
     }
   });
 
   // Shorthand the application namespace
-  var app = namespace.app;
+  var app = kitchenapp.app;
 
   // Treat the jQuery ready function as the entry point to the application.
   // Inside this function, kick-off all initialization, everything up to this
@@ -56,8 +57,7 @@ function(namespace, $, Backbone, Example) {
     var protocol = this.protocol + "//";
 
     // Ensure the protocol is not part of URL, meaning its relative.
-    if (href && href.slice(0, protocol.length) !== protocol &&
-        href.indexOf("javascript:") !== 0) {
+    if (href && href.slice(0, protocol.length) !== protocol) {
       // Stop the default event to ensure the link will not cause a page
       // refresh.
       evt.preventDefault();

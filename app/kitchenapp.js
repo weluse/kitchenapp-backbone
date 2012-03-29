@@ -25,12 +25,12 @@ function($, _, Backbone, Handlebars) {
       path = path + ".html";
 
       var done = this.async();
-      var JST = window.JST = window.JST || {}; 
+      var JST = window.JST = window.JST || {};
 
       if (JST[path]) {
         return done(Handlebars.template(JST[path]));
-      } 
-      
+      }
+
       $.get(path, function(contents) {
         var tmpl = Handlebars.compile(contents);
 
