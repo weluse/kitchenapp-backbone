@@ -42,10 +42,6 @@ define [
     template: "task/detail"
 
     serialize: ->
-      if @model?
-        return @model.toJSON()
-
-      # Fallback
-      return {}
+      return @model.toJSON()
 
   return Task

@@ -50,9 +50,9 @@ function(kitchenapp, $, Backbone, Person, Task) {
     show: function(id) {
       var main = this._initMain();
 
-      detail = main.view("#kl-task-detail", new Task.Views.Detail());
-
       app.tasks.loaded.then(function () {
+        detail = main.view("#kl-task-detail", new Task.Views.Detail());
+
         detail.model = app.tasks.get(id);
         detail.render();
       });
