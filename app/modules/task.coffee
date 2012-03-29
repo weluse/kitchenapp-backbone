@@ -14,6 +14,9 @@ define [
   class Task.Views.List extends Backbone.LayoutManager.View
     template: "task/list"
 
+    initialize: ->
+      @collection.bind('reset', => @render())
+
     render: (layout) ->
       view = layout(this)
       @collection.each((element) ->
