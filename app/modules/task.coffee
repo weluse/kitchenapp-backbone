@@ -50,9 +50,7 @@ define [
       return @model.toJSON()
 
     render: (layout) ->
-      r = layout(this).render()
-
-      return r.then(=>
+      return layout(this).render().then(=>
         console.log("Bound to ", this.model.get("id"))
         Backbone.ModelBinding.bind(this)
       )
@@ -60,5 +58,36 @@ define [
     save: (ev) ->
       console.log("Saving task data")
       @model.save()
+
+  class Task.Views.Create extends Backbone.LayoutManager.View
+    template: "task/create"
+    events:
+      "click button": 'save'
+      "keypress input": 'onInputKeydown'
+
+    initialize: ->
+      console.log("Initializing with new task")
+      # Initialize with empty model
+      @model = new Backbone.Model()
+
+    render: (layout) ->
+      layout(this).render().then(=>
+        Backbone.ModelBinding.bind(this)
+      )
+
+    onInputKeydown: (ev) ->
+      # Enter
+      if ev.keyCode == 13
+        ev.stopPropagation()
+        # Enforce change event
+        @$(ev.target).change()
+        @save()
+
+    save: ->
+      console.log("Creating new task ...")
+      @collection.create(@model.toJSON())
+      # Start over
+      @initialize()
+      @render()
 
   return Task

@@ -13,7 +13,7 @@ require([
 function(kitchenapp, $, Backbone, Person, Task) {
 
   // Shorthand the application namespace
-  var app = kitchenapp.app;
+  var app = window.app = kitchenapp.app;
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -34,6 +34,10 @@ function(kitchenapp, $, Backbone, Person, Task) {
       }
 
       main.view("#kl-task-list", new Task.Views.List({
+        collection: app.tasks
+      }));
+
+      main.view("#kl-task-create", new Task.Views.Create({
         collection: app.tasks
       }));
 
