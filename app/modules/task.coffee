@@ -24,6 +24,8 @@ define [
     render: (layout) ->
       view = layout(this)
 
+      view.cleanup()
+
       @collection.each((element) ->
         view.insert("ul", new Task.Views.Element({model: element}), true)
       )
@@ -36,11 +38,23 @@ define [
     events:
       "click .text": 'loadDetail'
 
+    initialize: ->
+      @model.on('change:done', @model.save, @model)
+
     serialize: ->
       return @model.toJSON()
 
     loadDetail: ->
       app.router.navigate("/show/#{@model.id}", {trigger: true})
+
+    render: (layout) ->
+      layout(this).render().then(=>
+        Backbone.ModelBinding.bind(this)
+      )
+
+    cleanup: ->
+      @model.off('change:done')
+      Backbone.ModelBinding.unbind(this)
 
   class Task.Views.Detail extends Backbone.LayoutManager.View
     template: "task/detail"
