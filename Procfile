@@ -1,1 +1,1 @@
-web: node build server
+web: node build release server

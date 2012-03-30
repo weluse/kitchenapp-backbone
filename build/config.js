@@ -116,6 +116,7 @@ config.init({
     },
 
     release: {
+      host: "0.0.0.0",
 
       folders: {
         "app": "dist/release",
