@@ -4,15 +4,23 @@ define([
   "use!underscore",
   "use!backbone",
   "use!handlebars",
-  "modelbinding",
+
+  "synapse",
+  "synapse/jquery",
+  "synapse/object",
+  "synapse/backbone-view",
+  "synapse/backbone-model",
 
   // Plugins
   "use!plugins/backbone.layoutmanager"
 ],
 
-function($, _, Backbone, Handlebars, ModelBinding) {
+function($, _, Backbone, Handlebars, Synapse, SynapseJQuery,
+         SynapseObject, SynapseBackboneView, SynapseBackboneModel) {
+
+  Synapse.hooks = [SynapseJQuery, SynapseBackboneView,
+      SynapseBackboneModel, SynapseObject];
   // Put application wide code here
-  ModelBinding.Configuration.configureAllBindingAttributes("data-attr");
   Backbone.LayoutManager.configure({
     paths: {
       layout: "/app/templates/layouts/",
