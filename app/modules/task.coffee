@@ -1,8 +1,8 @@
 define [
   "kitchenapp",
+  "datalink"
   "use!backbone",
-  "synapse"
-], (kitchenapp, Backbone, Synapse) ->
+], (kitchenapp, DataLink, Backbone) ->
   Task = kitchenapp.module()
   app = kitchenapp.app
 
@@ -68,10 +68,7 @@ define [
       window.cm = @model
       return layout(this).render().then(=>
         console.log("Bound to ", @model.get("id"))
-
-        data = Synapse(@model)
-        field = Synapse(@$('[data-bind=title]'))
-        data.syncWith(field)
+        DataLink.linkView(this, ['title'])
       )
 
     save: (ev) ->
