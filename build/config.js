@@ -105,11 +105,9 @@ config.init({
   //  To learn more about using the server task, please refer to the code
   //  until documentation has been written.
   server: {
-    port: 8888,
+    port: process.env.PORT || 8888,
 
     debug: {
-      port: 8888,
-
       folders: {
         "app": "dist/debug",
         "app/templates": "app/templates",
@@ -118,7 +116,6 @@ config.init({
     },
 
     release: {
-      port: 8888,
 
       folders: {
         "app": "dist/release",
@@ -152,7 +149,7 @@ config.init({
 // dist/debug/templates.js, compile all the application code into
 // dist/debug/require.js, and then concatenate the require/define shim
 // almond.js and dist/debug/templates.js into the require.js file.
-task.registerTask("default", "clean coffee lint handlebars requirejs concat");
+task.registerTask("default", "clean coffee handlebars requirejs concat");
 
 // The debug task is simply an alias to default to remain consistent with
 // debug/release.
