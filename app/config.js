@@ -14,6 +14,7 @@ require.config({
     underscore: "../assets/js/libs/underscore",
     backbone: "../assets/js/libs/backbone",
     handlebars: "../assets/js/libs/handlebars-1.0.0.beta.6",
+    datalink: "../assets/js/libs/datalink",
 
     // Shim Plugin
     use: "../assets/js/plugins/use"

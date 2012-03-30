@@ -5,7 +5,7 @@
 # Backbone models and views.
 #
 # Copyright 2012, Pascal Hartig
-# Dual licensed under the MIT or GPL Version 3 lincenses.
+# Dual licensed under the MIT or GPL Version 3 licenses.
 ###
 
 ((root, factory) ->
@@ -19,6 +19,42 @@
     else
         # Browser globals
         root.ObjectHook = factory(root, {}, root.Synapse)
-)(this, (root, ObjectHook, core) ->
-    # Code here.
+)(this, (root, ObjectHook, Synapse) ->
+    checkView = (view) ->
+        unless view.model?
+            throw new Error "View #{view.toString()} must be bound to a model!"
+
+    return {
+        defaultOptions:
+            # Binding function. One of syncWith, observe, notify.
+            bind: 'syncWith'
+            # Attribute to look for to map elements
+            attribute: 'data-bind'
+
+        linkView: (view, elements, defaultOptions, elementOptions) ->
+            # Build local default options
+            defaults = _.defaults(defaultOptions or {}, @defaultOptions)
+
+            checkView(view)
+            observer = Synapse(view.model)
+            observeFn = observer[defaults.bind]
+
+            bind = ($element, localElementOptions) ->
+                if (customBind = localElementOptions?.bind)
+                    localObserveFn = observer[customBind]
+                else
+                    localObserveFn = observeFn
+
+                localObserveFn.call(observer, $element)
+
+            findElement = (element, localElementOptions) ->
+                attribute = localElementOptions?.attribute or defaults.attribute
+                $element = view.$("[#{attribute}=#{element}")
+
+            for element in elements
+                localElementOptions = elementOptions[element]
+                # Build jQuery object
+                $element = findElement(element, localElementOptions)
+                bind($element, localElementOptions)
+    }
 )
