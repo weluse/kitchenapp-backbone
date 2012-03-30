@@ -4,7 +4,6 @@
   "dependencies": {
       "coffee-script": "1.2.0",
       "express": "2.5.4",
-      "grunt": "0.2.15",
       "clean-css": "0.3.1",
       "handlebars": "1.0.4beta",
       "rimraf": "1.0.9",
