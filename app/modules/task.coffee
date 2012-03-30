@@ -4,8 +4,7 @@ define [
   "modelbinding"
 ], (kitchenapp, Backbone) ->
   Backbone.ModelBinding = require('modelbinding')
-  # XXX: DEBUG!!
-  window.Task = Task = kitchenapp.module()
+  Task = kitchenapp.module()
   app = kitchenapp.app
 
   class Task.Model extends Backbone.Model
