@@ -42,7 +42,7 @@ function(kitchenapp, $, Backbone, Person, Task) {
       }));
 
       main.render(function(el) {
-        $("body").html(el);
+        $("#main").html(el);
       });
 
       return main;
