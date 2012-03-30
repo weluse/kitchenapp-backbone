@@ -12,8 +12,14 @@ require.config({
     jquery: "../assets/js/libs/jquery",
     underscore: "../assets/js/libs/underscore",
     backbone: "../assets/js/libs/backbone",
-    modelbinding: "../assets/js/libs/backbone.modelbinding",
+    synapse: "../assets/js/libs/synapse-0.5",
     handlebars: "../assets/js/libs/handlebars-1.0.0.beta.6",
+
+    // Synapse hooks
+    'synapse/jquery': "../assets/js/libs/synapse/jquery",
+    'synapse/object': "../assets/js/libs/synapse/object",
+    'synapse/backbone-model': "../assets/js/libs/synapse/backbone-model",
+    'synapse/backbone-view': "../assets/js/libs/synapse/backbone-view",
 
     // Shim Plugin
     use: "../assets/js/plugins/use"
