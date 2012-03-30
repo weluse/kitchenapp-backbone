@@ -7,6 +7,7 @@ define([
 
   "synapse",
   "synapse/jquery",
+  "synapse/object",
   "synapse/backbone-view",
   "synapse/backbone-model",
 
@@ -15,11 +16,10 @@ define([
 ],
 
 function($, _, Backbone, Handlebars, Synapse, SynapseJQuery,
-         SynapseBackboneView, SynapseBackboneModel) {
+         SynapseObject, SynapseBackboneView, SynapseBackboneModel) {
 
-  Synapse.hooks.push(SynapseJQuery);
-  Synapse.hooks.push(SynapseBackboneView);
-  Synapse.hooks.push(SynapseBackboneModel);
+  Synapse.hooks = [SynapseJQuery, SynapseBackboneView,
+      SynapseBackboneModel, SynapseObject];
   // Put application wide code here
   Backbone.LayoutManager.configure({
     paths: {
