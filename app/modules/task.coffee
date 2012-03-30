@@ -74,6 +74,7 @@ define [
       )
 
     save: (ev) ->
+      ev.preventDefault()
       console.log("Saving task data")
       @model.save()
 
@@ -107,12 +108,15 @@ define [
     onInputKeydown: (ev) ->
       # Enter
       if ev.keyCode == 13
+        ev.preventDefault()
         ev.stopPropagation()
         # Enforce change event
         @$(ev.target).change()
         @save()
 
-    save: ->
+    save: (ev) ->
+      ev?.preventDefault()
+
       console.log("Creating new task ...")
       @collection.create(@model.toJSON())
       # Start over
