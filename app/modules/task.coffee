@@ -65,8 +65,13 @@ define [
       return @model.toJSON()
 
     render: (layout) ->
+      window.cm = @model
       return layout(this).render().then(=>
-        console.log("Bound to ", this.model.get("id"))
+        console.log("Bound to ", @model.get("id"))
+
+        data = Synapse(@model)
+        field = Synapse(@$('[data-bind=title]'))
+        data.syncWith(field)
       )
 
     save: (ev) ->

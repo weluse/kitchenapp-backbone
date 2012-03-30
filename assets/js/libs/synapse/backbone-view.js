@@ -210,7 +210,8 @@ var __slice = Array.prototype.slice;
     elementInterfaces: elementInterfaces,
     interfaces: interfaces,
     checkObjectType: function(object) {
-      return object instanceof Backbone.View;
+      return object instanceof Backbone.View ||
+          object.__manager__ !== undefined;
     },
     getHandler: function(object, key) {
       var el, value;
