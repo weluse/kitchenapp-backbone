@@ -14,7 +14,7 @@ task.registerTask("server", "Run development server.", function(prop) {
     favicon: "./favicon.ico",
     index: "./index.html",
 
-    port: 8000,
+    port: process.env.port || 8000,
     host: "127.0.0.1"
   });
 
