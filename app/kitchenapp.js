@@ -4,15 +4,13 @@ define([
   "use!underscore",
   "use!backbone",
   "use!handlebars",
-  "modelbinding",
 
   // Plugins
   "use!plugins/backbone.layoutmanager"
 ],
 
-function($, _, Backbone, Handlebars, ModelBinding) {
+function($, _, Backbone, Handlebars) {
   // Put application wide code here
-  ModelBinding.Configuration.configureAllBindingAttributes("data-attr");
   Backbone.LayoutManager.configure({
     paths: {
       layout: "/app/templates/layouts/",

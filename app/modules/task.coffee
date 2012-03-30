@@ -1,9 +1,8 @@
 define [
   "kitchenapp",
   "use!backbone",
-  "modelbinding"
-], (kitchenapp, Backbone) ->
-  Backbone.ModelBinding = require('modelbinding')
+  "synapse"
+], (kitchenapp, Backbone, Synapse) ->
   Task = kitchenapp.module()
   app = kitchenapp.app
 
@@ -51,12 +50,10 @@ define [
 
     render: (layout) ->
       layout(this).render().then(=>
-        Backbone.ModelBinding.bind(this)
       )
 
     cleanup: ->
       @model.off('change:done')
-      Backbone.ModelBinding.unbind(this)
 
   class Task.Views.Detail extends Backbone.LayoutManager.View
     template: "task/detail"
@@ -70,7 +67,6 @@ define [
     render: (layout) ->
       return layout(this).render().then(=>
         console.log("Bound to ", this.model.get("id"))
-        Backbone.ModelBinding.bind(this)
       )
 
     save: (ev) ->
@@ -86,7 +82,6 @@ define [
         app.router.navigate("/", {trigger: true})
 
     cleanup: ->
-      Backbone.ModelBinding.unbind(this)
 
 
   class Task.Views.Create extends Backbone.LayoutManager.View
@@ -102,7 +97,6 @@ define [
 
     render: (layout) ->
       layout(this).render().then(=>
-        Backbone.ModelBinding.bind(this)
       )
 
     onInputKeydown: (ev) ->
