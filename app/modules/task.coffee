@@ -45,6 +45,7 @@ define [
       return @model.toJSON()
 
     loadDetail: ->
+      @cleanup()
       app.router.navigate("/show/#{@model.id}", {trigger: true})
 
     render: (layout) ->
