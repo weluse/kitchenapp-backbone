@@ -43,7 +43,9 @@ define [
     serialize: ->
       return @model.toJSON()
 
-    loadDetail: ->
+    loadDetail: (ev) ->
+      ev.preventDefault()
+
       @cleanup()
       app.router.navigate("/show/#{@model.id}", {trigger: true})
 

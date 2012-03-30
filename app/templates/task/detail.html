@@ -1,11 +1,20 @@
-<h2>
-  [{{id}}]<input data-attr="title">
-  <input type="checkbox" class="tick" data-attr="done">
-</h2>
-<p>
-  Assigned: <strong>{{assignee_name}}</strong>
-</p>
-<textarea data-attr="description" placeholder="Description">
-</textarea>
-<button id="kl-detail-save">Save</button>
-<a href="#" data-bypass class="delete">Delete</a>
+<h1>Kitchenapp</h1>
+<form class="form-horizontal" style="padding-top: 2em">
+  <div class="well form-horizontal">
+    <div class="control-group">
+      <input type="checkbox" class="tick input-small" data-attr="done">
+      <input data-attr="title">
+    </div>
+    <div class="control-group">
+      <p>Assigned: <strong>{{assignee_name}}</strong></p>
+    </div>
+    <div class="control-group">
+      <textarea data-attr="description" placeholder="Description">
+      </textarea>
+    </div>
+    <div class="control-group">
+      <button id="kl-detail-save" class="btn btn-primary">Save</button>
+      <a href="#" data-bypass class="delete">Delete</a>
+    </div>
+  </div>
+</form>
