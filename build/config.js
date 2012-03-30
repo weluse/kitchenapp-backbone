@@ -106,6 +106,7 @@ config.init({
   //  until documentation has been written.
   server: {
     port: process.env.PORT || 8888,
+    host: "0.0.0.0",
 
     debug: {
       folders: {
@@ -116,8 +117,6 @@ config.init({
     },
 
     release: {
-      host: "0.0.0.0",
-
       folders: {
         "app": "dist/release",
         "app/templates": "app/templates",
