@@ -18,22 +18,23 @@ define [
     template: "task/list"
 
     initialize: ->
-      @collection.bind('reset', => @render())
-      @collection.bind('change', => @render())
+      # Ineffecient!
+      @collection.on('reset change', => @render())
 
     render: (layout) ->
       view = layout(this)
+
       @collection.each((element) ->
-        view.insert("ul", new Task.Views.Element({model: element}))
+        view.insert("ul", new Task.Views.Element({model: element}), true)
       )
 
-      return view.render(@collection)
+      return view.render()
 
   class Task.Views.Element extends Backbone.LayoutManager.View
     template: "task/element"
     tagName: "li"
     events:
-      click: 'loadDetail'
+      "click .text": 'loadDetail'
 
     serialize: ->
       return @model.toJSON()
@@ -66,6 +67,10 @@ define [
       if confirm("Really?")
         @model.destroy()
         app.router.navigate("/", {trigger: true})
+
+    cleanup: ->
+      Backbone.ModelBinding.unbind(this)
+
 
   class Task.Views.Create extends Backbone.LayoutManager.View
     template: "task/create"
