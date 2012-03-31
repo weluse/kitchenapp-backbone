@@ -2,8 +2,7 @@ define [
     "kitchenapp",
     "use!backbone"
 ], (kitchenapp, Backbone) ->
-  # XXX: DEBUG!!
-  window.Person = Person = kitchenapp.module()
+  Person = kitchenapp.module()
 
   class Person.Model extends Backbone.Model
 

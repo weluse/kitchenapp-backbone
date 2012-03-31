@@ -1,14 +1,14 @@
 <form class="form-horizontal" style="padding-top: 2em">
   <div class="well form-horizontal">
     <div class="control-group">
-      <input type="checkbox" class="tick input-small" data-attr="done">
-      <input data-attr="title">
+      <input type="checkbox" class="tick input-small" data-bind="done">
+      <input data-bind="title" val="{{title}}">
     </div>
     <div class="control-group">
       <p>Assigned: <strong>{{assignee_name}}</strong></p>
     </div>
     <div class="control-group">
-      <textarea data-attr="description" placeholder="Description">
+      <textarea data-bind="description" placeholder="Description">
       </textarea>
     </div>
     <div class="control-group">

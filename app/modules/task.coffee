@@ -1,9 +1,8 @@
 define [
   "kitchenapp",
+  "datalink"
   "use!backbone",
-  "modelbinding"
-], (kitchenapp, Backbone) ->
-  Backbone.ModelBinding = require('modelbinding')
+], (kitchenapp, DataLink, Backbone) ->
   Task = kitchenapp.module()
   app = kitchenapp.app
 
@@ -38,7 +37,10 @@ define [
       "click .text": 'loadDetail'
 
     initialize: ->
-      @model.on('change:done', @model.save, @model)
+      @model.on('change:done', => 
+        console.log("Saving task from element view.")
+        @model.save()
+      )
 
     serialize: ->
       return @model.toJSON()
@@ -51,12 +53,11 @@ define [
 
     render: (layout) ->
       layout(this).render().then(=>
-        Backbone.ModelBinding.bind(this)
+          DataLink.linkView(this, ['done'])
       )
 
     cleanup: ->
       @model.off('change:done')
-      Backbone.ModelBinding.unbind(this)
 
   class Task.Views.Detail extends Backbone.LayoutManager.View
     template: "task/detail"
@@ -68,14 +69,15 @@ define [
       return @model.toJSON()
 
     render: (layout) ->
+      window.cm = @model
       return layout(this).render().then(=>
-        console.log("Bound to ", this.model.get("id"))
-        Backbone.ModelBinding.bind(this)
+        console.log("Bound to ", @model.get("id"))
+        DataLink.linkView(this, ['title', 'done', 'description'])
       )
 
     save: (ev) ->
       ev.preventDefault()
-      console.log("Saving task data")
+      console.log("Saving task data from details view.")
       @model.save()
 
     delete: (ev) ->
@@ -86,7 +88,6 @@ define [
         app.router.navigate("/", {trigger: true})
 
     cleanup: ->
-      Backbone.ModelBinding.unbind(this)
 
 
   class Task.Views.Create extends Backbone.LayoutManager.View
@@ -102,7 +103,7 @@ define [
 
     render: (layout) ->
       layout(this).render().then(=>
-        Backbone.ModelBinding.bind(this)
+        DataLink.linkView(this, ['title'])
       )
 
     onInputKeydown: (ev) ->
