@@ -20,6 +20,7 @@ function($, _, Backbone, Handlebars, Synapse, SynapseJQuery,
 
   Synapse.hooks = [SynapseJQuery, SynapseBackboneView,
       SynapseBackboneModel, SynapseObject];
+
   // Put application wide code here
   Backbone.LayoutManager.configure({
     paths: {

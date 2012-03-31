@@ -37,7 +37,10 @@ define [
       "click .text": 'loadDetail'
 
     initialize: ->
-      @model.on('change:done', @model.save, @model)
+      @model.on('change:done', => 
+        console.log("Saving task from element view.")
+        @model.save()
+      )
 
     serialize: ->
       return @model.toJSON()
@@ -50,6 +53,7 @@ define [
 
     render: (layout) ->
       layout(this).render().then(=>
+          DataLink.linkView(this, ['done'])
       )
 
     cleanup: ->
@@ -68,12 +72,12 @@ define [
       window.cm = @model
       return layout(this).render().then(=>
         console.log("Bound to ", @model.get("id"))
-        DataLink.linkView(this, ['title'])
+        DataLink.linkView(this, ['title', 'done', 'description'])
       )
 
     save: (ev) ->
       ev.preventDefault()
-      console.log("Saving task data")
+      console.log("Saving task data from details view.")
       @model.save()
 
     delete: (ev) ->
@@ -99,6 +103,7 @@ define [
 
     render: (layout) ->
       layout(this).render().then(=>
+        DataLink.linkView(this, ['title'])
       )
 
     onInputKeydown: (ev) ->
