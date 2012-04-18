@@ -2,15 +2,23 @@
   "name": "passy-backbone-layoutmanager-boilerplate",
   "version": "0.0.1",
   "dependencies": {
-      "coffee-script": "1.2.0",
-      "express": "2.5.4",
-      "clean-css": "0.3.1",
-      "handlebars": "1.0.4beta",
-      "rimraf": "1.0.9",
-      "underscore": "1.2.4",
-      "requirejs": "1.0.7"
+    "coffee-script": "1.2.0",
+    "express": "2.5.4",
+    "clean-css": "0.3.1",
+    "handlebars": "1.0.4beta",
+    "rimraf": "1.0.9",
+    "underscore": "1.2.4",
+    "requirejs": "1.0.7"
   },
   "engines": {
-      "node": "0.6.14"
+    "node": "0.6.14"
+  },
+  "amd": {
+    "baseUrl": "assets/libs"
+  },
+  "volo": {
+    "dependencies": {
+      "jquery": "github:jquery/jquery/1.7.2"
+    }
   }
 }
