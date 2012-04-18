@@ -1,8 +1,8 @@
 define [
   "kitchenapp",
-  "datalink"
   "use!backbone",
-], (kitchenapp, DataLink, Backbone) ->
+  "use!plugins/backbone.modelbinder",
+], (kitchenapp, Backbone) ->
   Task = kitchenapp.module()
   app = kitchenapp.app
 
@@ -37,7 +37,8 @@ define [
       "click .text": 'loadDetail'
 
     initialize: ->
-      @model.on('change:done', => 
+      @modelBinder = new Backbone.ModelBinder()
+      @model.on('change:done', =>
         console.log("Saving task from element view.")
         @model.save()
       )
@@ -53,7 +54,8 @@ define [
 
     render: (layout) ->
       layout(this).render().then(=>
-          DataLink.linkView(this, ['done'])
+        @modelBinder.bind(@model, @el, {'done': '[data-bind=done]'})
+        # DataLink.linkView(this, ['done'])
       )
 
     cleanup: ->
@@ -65,6 +67,9 @@ define [
       "click button": 'save'
       "click .delete": 'delete'
 
+    initialize: ->
+      @modelBinder = new Backbone.ModelBinder()
+
     serialize: ->
       return @model.toJSON()
 
@@ -72,7 +77,8 @@ define [
       window.cm = @model
       return layout(this).render().then(=>
         console.log("Bound to ", @model.get("id"))
-        DataLink.linkView(this, ['title', 'done', 'description'])
+        @modelBinder.bind(@model, @el)
+        # DataLink.linkView(this, ['title', 'done', 'description'])
       )
 
     save: (ev) ->
@@ -103,7 +109,7 @@ define [
 
     render: (layout) ->
       layout(this).render().then(=>
-        DataLink.linkView(this, ['title'])
+        # DataLink.linkView(this, ['title'])
       )
 
     onInputKeydown: (ev) ->
