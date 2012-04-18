@@ -5,21 +5,11 @@ define([
   "use!backbone",
   "use!handlebars",
 
-  "synapse",
-  "synapse/jquery",
-  "synapse/object",
-  "synapse/backbone-view",
-  "synapse/backbone-model",
-
   // Plugins
   "use!plugins/backbone.layoutmanager"
 ],
 
-function($, _, Backbone, Handlebars, Synapse, SynapseJQuery,
-         SynapseObject, SynapseBackboneView, SynapseBackboneModel) {
-
-  Synapse.hooks = [SynapseJQuery, SynapseBackboneView,
-      SynapseBackboneModel, SynapseObject];
+function($, _, Backbone, Handlebars) {
 
   // Put application wide code here
   Backbone.LayoutManager.configure({

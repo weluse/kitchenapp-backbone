@@ -7,7 +7,6 @@ require.config({
     // JavaScript folders
     libs: "../assets/js/libs",
     plugins: "../assets/js/plugins",
-    synapse: "../assets/js/libs/synapse",
 
     // Libraries
     jquery: "../assets/js/libs/jquery",
@@ -35,6 +34,10 @@ require.config({
     },
 
     "plugins/backbone.layoutmanager": {
+      deps: ["use!backbone"]
+    },
+
+    "plugins/backbone.modelbinder": {
       deps: ["use!backbone"]
     }
   }
