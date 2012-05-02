@@ -37,7 +37,7 @@ define [
       "click .text": 'loadDetail'
 
     initialize: ->
-      @model.on('change:done', => 
+      @model.on('change:done', =>
         console.log("Saving task from element view.")
         @model.save()
       )
